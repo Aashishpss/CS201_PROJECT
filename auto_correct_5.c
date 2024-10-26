@@ -3,8 +3,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <limits.h>
 #include <math.h>
-
 
 #define ALPHABET_SIZE 26
 #define MAX_WORD_LEN 100
@@ -91,11 +91,11 @@ int levenshtein_distance(const char *s1, const char *s2) {
     return dp[len1][len2];
 }
 
-// Recursive function to collect suggestions
-void collect_suggestions(TrieNode *root, char *prefix, int level, Suggestion *suggestions, int *count, const char *input, double alpha, double max_weight) {
+// Recursive function to collect suggestions of the same length
+void collect_suggestions(TrieNode *root, char *prefix, int level, Suggestion *suggestions, int *count, const char *input, double alpha, double max_weight, int target_length) {
     if (root == NULL) return;
 
-    if (root->isEndOfWord) {
+    if (root->isEndOfWord && level == target_length) {
         int lev_dist = levenshtein_distance(prefix, input);
         if (lev_dist <= LEVENSHTEIN_LIMIT) {
             double normalized_weight = (double)root->weight / max_weight;
@@ -106,21 +106,24 @@ void collect_suggestions(TrieNode *root, char *prefix, int level, Suggestion *su
         }
     }
 
-    for (int i = 0; i < ALPHABET_SIZE; i++) {
-        if (root->children[i]) {
-            prefix[level] = 'a' + i;
-            prefix[level + 1] = '\0';
-            collect_suggestions(root->children[i], prefix, level + 1, suggestions, count, input, alpha, max_weight);
-            prefix[level] = '\0';
+    if (level < target_length) {
+        for (int i = 0; i < ALPHABET_SIZE; i++) {
+            if (root->children[i]) {
+                prefix[level] = 'a' + i;
+                prefix[level + 1] = '\0';
+                collect_suggestions(root->children[i], prefix, level + 1, suggestions, count, input, alpha, max_weight, target_length);
+                prefix[level] = '\0';
+            }
         }
     }
 }
 
-// Function to suggest words based on combined score
+// Function to suggest words based on combined score and matching length
 void suggest_words(TrieNode *currentTrie, TrieNode *pastTrie, const char *input, double alpha) {
     Suggestion suggestions[1000];
     int count = 0;
     char prefix[MAX_WORD_LEN] = "";
+    int input_length = strlen(input);
 
     double max_weight_current = 1.0, max_weight_past = 1.0;
 
@@ -128,8 +131,9 @@ void suggest_words(TrieNode *currentTrie, TrieNode *pastTrie, const char *input,
     max_weight_current = currentTrie->weight ? currentTrie->weight : 1.0;
     max_weight_past = pastTrie->weight ? pastTrie->weight : 1.0;
 
-    collect_suggestions(currentTrie, prefix, 0, suggestions, &count, input, alpha, max_weight_current);
-    collect_suggestions(pastTrie, prefix, 0, suggestions, &count, input, alpha, max_weight_past);
+    // Collect suggestions of the same length as the input word
+    collect_suggestions(currentTrie, prefix, 0, suggestions, &count, input, alpha, max_weight_current, input_length);
+    collect_suggestions(pastTrie, prefix, 0, suggestions, &count, input, alpha, max_weight_past, input_length);
 
     // Sort suggestions based on score
     for (int i = 0; i < count - 1; i++) {
