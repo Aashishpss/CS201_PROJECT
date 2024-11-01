@@ -6,6 +6,6 @@
 
 # Part-3 : Auto correct done 
 
-# Part-4 : Final Integration of all the above parts(not done).
+# Part-4 : Final Integration of all the above parts(done).
 
 # Part-5 : Overall evaluation of the project( not done).
