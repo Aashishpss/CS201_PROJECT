@@ -1,7 +1,6 @@
 # CS201_PROJECT
 
-## PROJECT NAME:
-###Contextual Auto-Fill and Auto-Correct with Learning Memory using Trie Data Structure
+## PROJECT NAME:Contextual Auto-Fill and Auto-Correct with Learning Memory using Trie Data Structure
 
 ## INTRODUCTION:
 This project implements an advanced auto-suggestion and auto-correction system using the Trie data structure,
