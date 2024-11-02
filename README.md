@@ -58,3 +58,16 @@ allowing the system to prioritize suggestions based on recent user behavior.
     CS_201_Project_Grp18.exe
 
 7.Follow the on-screen instructions to interact with the program.
+
+## What to Input:
+1. The program will start by asking what to do auto-fill or auto-correct ,choose what you want to run.
+2. If you have choosen auto-fill then type a sentence where words are separated by spaces(don't write characters other than alphabets(26)) you have to flexibility to write in both uppercase and lowercase and as it is auto-fill do write the last word incomplete and then press enter to continue.
+3. If you have choosen auto-correct then type a sentence where words are separated by spaces(don't write characters other than alphabets(26)) you have to flexibility to write in both uppercase and lowercase and as it is auto-correct do write the last word misspelled and then press enter to continue.
+
+## What to expect as a Output:
+1. If you have choosen auto-fill then in the outputs there will be the words which would either be present in current trie or past trie with their weights and if no word is found then no suggestion will be printed and for it you can type same words twice in the sentence and can check the output for its accuracy.
+2. If you have choosen auto-correct then in the output there will be the words which will be suggested for correction based on the past and current trie and can test it in the similar fashion as in 1.
+
+# Note:
+1. Don't enter characters apart from alphabets(26) like symbols,special characters,numbers etc.
+2. Due to constrained memory the past trie isn't that much large so it may happen that there would be no suggestion coming up when you enter some words.
