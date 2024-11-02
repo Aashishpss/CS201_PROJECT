@@ -14,6 +14,7 @@ allowing the system to prioritize suggestions based on recent user behavior.
 4. CS_201_Project_Grp18.c--> "This final file contains the integrated functionalities of auto-fill and auto-correct use this for evaluation purpose as it contains a common functionalities for input and output
 ## How to run:
 1.Download the "CS_201_Project_Grp18.c" file from this repository.
+2. 2. Ensure you have a C compiler installed on your machine:
 2. Ensure you have a C compiler installed on your machine:
     
     For macOS/Linux: You can use GCC, which is often pre-installed or can be installed via Homebrew (brew install gcc).
